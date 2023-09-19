@@ -1,3 +1,6 @@
+<details>
+<summary>Tugas 2</summary>
+
 # Tugas 2 PBP
 link hasil deploy aplikasi: https://catalogjocelyn.adaptable.app/
 
@@ -79,3 +82,160 @@ Model-View-ViewModel (MVVM) adalah pola arsitektur perangkat lunak yang banyak d
 * Dari Segi Fleksibilitas Tampilan
   * MVVM mencapai tingkat fleksibilitas tampilan yang lebih tinggi melalui penggunaan ViewModel, di mana tampilan dapat dengan mudah diubah tanpa mengganggu Model atau data di baliknya.
   * MVT dan MVC memiliki cara yang lebih terbatas dalam mengelola tampilan.
+
+
+</details>
+
+<details>
+<summary>Tugas 3</summary>
+
+# Tugas 3 PBP
+## Perbedaan antara form POST dan form GET dalam Django
+* POST
+  * Lebih aman karena data dikirimkan dalam badan permintaan HTTP sehingga data ini tidak terlihat di URL
+  * Panjang string tidak dibatasi
+  * Pengambilan variabel dengan request.POST.get
+  * Pengiriman data tidak memengaruhi data di server (menambah atau mengubah data di database) sehingga sering digunakan untuk tindakan yang mengubah status, seperti menambahkan data baru
+  * Karena keamanannya, sesuai digunakan untuk mengirim data-data penting seperti password
+* GET
+  * Kurang aman salah satunya karena data dikirimkan melalui URL sebagai query string sehingga berarti data tersebut akan terlihat langsung di URL, yang dapat dilihat oleh banyak pihak
+  * Panjang string dibatasi hanya sampai 2047 karakter
+  * Pengambilan variabel dengan request.POST.get
+  * Pengiriman data umumnya digunakan untuk tindakan yang bersifat membaca dan tidak memengaruhi data di server. Dengan kata lain, mengambil data dari server tanpa memodifikasi data.
+  * Karena sifatnya yang kurang aman, maka sesuai digunakan untuk mengirim data-data tidak penting 
+
+
+## Perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data
+XML (eXtensible Markup Language), JSON (JavaScript Object Notation), dan HTML (HyperText Markup Language) adalah tiga format yang umum digunakan untuk pengiriman data dalam konteks berbeda. Berikut adalah perbedaan utama antara ketiganya:
+
+### Struktur dan Tujuan:
+* XML (eXtensible Markup Language): XML adalah bahasa markup yang dirancang untuk menyimpan dan mengirim data terstruktur. Ini adalah format umum yang digunakan dalam pertukaran data antara aplikasi dan platform yang berbeda.
+* JSON (JavaScript Object Notation): JSON adalah format pertukaran data yang ringan dan mudah dibaca yang digunakan terutama untuk pertukaran data antara aplikasi web dan server. Ini memiliki sintaksis yang lebih sederhana dan mudah digunakan oleh bahasa pemrograman modern.
+* HTML (HyperText Markup Language): HTML adalah bahasa markup yang digunakan untuk membuat halaman web. Ini digunakan untuk menentukan struktur dan tampilan halaman web, bukan untuk pertukaran data dalam format mentah seperti XML dan JSON.
+
+### Sintaksis:
+* XML: XML menggunakan sintaksis yang ketat dengan tag yang dikelilingi oleh tanda kurung siku `<tag></tag>` dan mendefinisikan struktur data dengan jelas menggunakan Dokumen Tipe (DTD) atau Skema XML.
+* JSON: JSON menggunakan sintaksis yang lebih ringkas dan sederhana. Data dalam JSON dibungkus dalam pasangan nama-nilai, yang dipisahkan oleh tanda titik dua (key: value). Ini membuatnya mudah dibaca oleh manusia dan mudah diproses oleh mesin.
+* HTML: HTML juga memiliki sintaksisnya sendiri yang digunakan untuk menggambarkan elemen-elemen dalam halaman web, termasuk tag seperti `<p>, <div>, <a>, dll`.
+
+### Tipe Data yang Didukung:
+* XML: XML mendukung berbagai jenis tipe data, termasuk teks, angka, tanggal, dan tipe data yang didefinisikan oleh pengguna melalui skema XML.
+* JSON: JSON mendukung tipe data dasar seperti string, angka, boolean, objek, array, dan nilai-nilai null.
+* HTML: HTML tidak berfungsi sebagai format pertukaran data; sebaliknya, itu adalah bahasa yang digunakan untuk menggambarkan tampilan dan struktur halaman web.
+
+### Penggunaan Umum:
+* XML: XML digunakan pada banyak aplikasi web maupun mobile, yaitu untuk menyimpan dan mengirimkan data.
+* JSON: JSON digunakan pada banyak aplikasi web modern maupun mobile, yaitu untuk menyimpan dan mengirimkan data. Sintaks JSON merupakan turunan dari Object JavaScript. Akan tetapi format JSON berbentuk text, sehingga kode untuk membaca dan membuat JSON banyak terdapat di banyak bahasa pemrograman.
+* HTML: HTML digunakan untuk membuat halaman web dan menggambarkan struktur dan konten halaman.
+
+### Pemrosesan
+* XML: Parsing XML memerlukan lebih banyak upaya karena sintaksis yang lebih rumit.
+* JSON:  Parsing JSON lebih mudah dan lebih cepat karena sintaksis yang sederhana.
+* HTML: Parsing HTML digunakan untuk merender halaman web dan memerlukan pemrosesan yang berbeda dari XML atau JSON.
+
+### Kecepatan:
+* XML: XML seringkali lebih lambat dalam pertukaran data dibandingkan dengan JSON atau HTML. Ini karena XML memiliki sintaksis yang lebih kompleks, dan parsing XML memerlukan lebih banyak waktu dan sumber daya.
+* JSON: JSON umumnya lebih cepat dalam pertukaran data dibandingkan dengan XML karena sintaksis yang lebih sederhana dan mudah diproses.
+* HTML:  HTML digunakan untuk membuat tampilan dan struktur halaman web, bukan untuk pertukaran data dalam format mentah seperti XML atau JSON. Kecepatan dalam konteks HTML terutama terkait dengan bagaimana halaman web itu sendiri dirancang dan diunggah oleh server ke klien.
+
+
+## Alasan JSON sering digunakan dalam pertukaran data antara aplikasi web modern
+Alasan utamanya adalah terkait dengan keringanan, kesederhanaan, dan kompatibilitasnya.
+* Keringanan (Lightweight):
+  * JSON adalah format data yang sangat ringan. Ini berarti bahwa data dalam format JSON memiliki ukuran file yang kecil sehingga memungkinkan untuk ditransmisikan melalui jaringan dengan cepat dan efisien.
+  * Keringanan ini mengurangi beban bandwidth dan waktu yang dibutuhkan untuk mengirim data JSON antara aplikasi web, yang merupakan aspek kunci dalam kinerja dan responsivitas aplikasi modern.
+  * Pengolahan JSON juga memerlukan sedikit sumber daya komputasi sehingga aplikasi yang memproses data JSON dapat berjalan dengan cepat dan efisien.
+
+* Kesederhanaan (Simplicity):
+  * JSON didesain dengan sederhana dan mudah dibaca oleh manusia. Data dalam JSON diatur dalam pasangan "nama-nilai" yang jelas dan intuitif, menjadikannya format data yang mudah dimengerti oleh developer dan bahkan oleh manusia yang melihatnya.
+  * Kesederhanaan ini membuat JSON cocok untuk pertukaran data yang perlu dianalisis atau dimodifikasi oleh manusia dan juga memudahkan pengembang dalam mengelola dan memahami data yang digunakan dalam aplikasi.
+
+* Kompatibilitas:
+  * JSON sangat kompatibel dengan berbagai bahasa pemrograman. Hampir semua bahasa pemrograman modern memiliki dukungan untuk mengurai dan menghasilkan data JSON yang memungkinkan aplikasi yang ditulis dalam bahasa yang berbeda-beda untuk berkomunikasi dengan mudah melalui JSON.
+  * Selain itu, JSON adalah format yang sangat kompatibel dengan JavaScript, yang adalah bahasa pemrograman yang sangat umum digunakan dalam pengembangan web. Ini membuat JSON menjadi pilihan yang ideal untuk pengembangan aplikasi web di mana JavaScript digunakan di sisi klien.
+
+
+## Pengimplementasian checklist di atas secara step-by-step
+### Membuat input form untuk menambahkan objek model pada app sebelumnya
+Untuk membuat input form, kita perlu membuat berkas baru bernama `forms.py` pada direktori `main`. Pertama-tama kita dapat mengimport `ModelForm` dari `django.forms` dan `Item` dari `main.models`. Langkah selanjutnya adalah membuat Class Formulir berdasarkan nama yang diinginkan dan kelas ini merupakan turunan dari `ModelForm`. Selanjutnya, kita dapat menentukan model yang digunakan oleh form, misalnya pada tugas kali ini atribut dalam item yang disertakan dalam form adalah `name, amount, description`. Lalu, kita akan melakukan import `HttpResponseRedirect`, `ItemForm`, dan `reverse` pada berkas `views.py` dalam direktori `main`. Dalam berkas ini pula, kita akan membuat fungsi baru bernama `create_item` yang digunakan untuk menghasilkan formulir yang dapat menambahkan data item secara otomatis ketika disubmit dari form. Contoh penerapan fungsi `create_item` adalah sebagai berikut:
+```
+def create_item(request):
+    form = ItemForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_item.html", context)
+```
+
+Pada fungsi `show_main` dalam `views.py` perlu ditambahkan fungsi `items = Item.objects.all()` untuk mengambil seluruh objek Item yang tersimpan dalam database. Selanjutnya, fungsi `show_main` dan `create_item` tersebut diimport pada `urls.py` sehingga dapat diakses dengan menambahkan path url ke dalam `urlspatterns` pada `urls.py` di `main`. Setelah itu, perlu membuat berkas HTML bernama `create_item.html` pada `main/templates` untuk menampilkan halaman form. Terakhir, kita dapat menggunakan `main.html` untuk menampilkan data produk yang telah diinput serta tombol yang akan menuju ke halaman form.
+
+### Menambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID
+Langkah yang perlu dilakukan adalah dengan membuka berkas `views.py` pada folder main dan meng-import `HttpResponse` dan `Serializer`, lalu membuat 5 fungsi berbeda untuk melihat objek dengan kelima format yang menerima parameter request (request dan id untuk format XML by ID dan JSON by ID) dan dalam fungsi tersebut terdapat variabel yang digunakan untuk menampung hasil query seluruh data yang ada pada `Item`. Untuk format XML by ID dan JSON by ID, hasil query seluruh data pada `Item` di-filter berdasarkan idnya. Fungsi tersebut akan me-return HttpResponse yang berisi parameter data hasil query yang sudah diserialisasi menjadi kelima format tersebut serta parameter `content_type="application/[namaformat]”`. 
+```
+def show_main(request):
+    items = Item.objects.all()
+    
+    context = {
+        'name': 'Jocelyn',
+        'class': 'PBP D',
+        'items': items,
+        'item_count': items.count(),  # Menambah item_count ke dalam konteks
+    }
+
+    return render(request, "main.html", context)
+
+def show_xml(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_xml_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+```
+
+### Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2
+Setelah membuat kelima fungsi tersebut, pada berkas `urls.py` di folder main akan ditambahkan import terhadap fungsi-fungsi yang tadi telah dibuat pada `views.py`. Selanjutnya, untuk mengakses fungsi yang telah di-import tadi ditambahkan path url ke dalam `urlpatterns`.
+```
+from django.urls import path
+from main.views import show_main, create_item, show_xml, show_json, show_xml_by_id, show_json_by_id 
+
+app_name = 'main'
+
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('create-item', create_item, name='create_item'),
+    path('xml/', show_xml, name='show_xml'), 
+    path('json/', show_json, name='show_json'), 
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+]
+```
+
+
+## Screenshot hasil akses URL pada Postman
+### HTML
+![Alt text](image-6.png)
+
+### XML
+![Alt text](image-5.png)
+
+### JSON
+![Alt text](image-4.png)
+
+### XML by ID
+![Alt text](image-7.png)
+
+### JSON by ID
+![Alt text](image-8.png)
