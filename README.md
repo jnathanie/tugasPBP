@@ -128,7 +128,7 @@ XML (eXtensible Markup Language), JSON (JavaScript Object Notation), dan HTML (H
 * JSON: JSON digunakan pada banyak aplikasi web modern maupun mobile, yaitu untuk menyimpan dan mengirimkan data. Sintaks JSON merupakan turunan dari Object JavaScript. Akan tetapi format JSON berbentuk text, sehingga kode untuk membaca dan membuat JSON banyak terdapat di banyak bahasa pemrograman.
 * HTML: HTML digunakan untuk membuat halaman web dan menggambarkan struktur dan konten halaman.
 
-### Pemrosesan
+### Pemrosesan:
 * XML: Parsing XML memerlukan lebih banyak upaya karena sintaksis yang lebih rumit.
 * JSON:  Parsing JSON lebih mudah dan lebih cepat karena sintaksis yang sederhana.
 * HTML: Parsing HTML digunakan untuk merender halaman web dan memerlukan pemrosesan yang berbeda dari XML atau JSON.
