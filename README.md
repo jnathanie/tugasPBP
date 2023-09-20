@@ -226,7 +226,8 @@ urlpatterns = [
 
 ## Screenshot hasil akses URL pada Postman
 ### HTML
-![Alt text](image-6.png)
+![Alt text](image-10.png)
+![Alt text](image-11.png)
 
 ### XML
 ![Alt text](image-5.png)
