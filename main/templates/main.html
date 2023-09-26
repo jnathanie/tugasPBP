@@ -10,9 +10,7 @@
     <p>{{class}}</p>
 
     {% comment %} Mengimplementasikan fitur tambahan {% endcomment %}
-    <div class="alert alert-info">
-        Kamu menyimpan {{ items|length }} item pada aplikasi ini.
-    </div>
+    <p>Kamu menyimpan {{ item_count }} item di sini</p>
 
     <table>
         <tr>
@@ -30,15 +28,43 @@
                 <td style="width: 10%;" align="center">{{item.amount}}</td>
                 <td style="width: 40%;" align="center">{{item.description}}</td>
                 <td align="center">{{item.date_added}}</td>
+                <td align="center">
+                    <div style="display: inline-block;">
+                        <form method="post" action="{% url 'main:add_amount' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Tambah</button>
+                        </form>
+                    </div>
+                    <div style="display: inline-block;">
+                        <form method="post" action="{% url 'main:min_amount' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Kurang</button>
+                        </form>
+                    </div>
+                    <div style="display: inline-block;">
+                        <form method="post" action="{% url 'main:remove_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Hapus</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
     </table>
     
     <br />
 
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+
     <a href="{% url 'main:create_item' %}">
         <button>
             Add New Item
+        </button>
+    </a>
+
+    <a href="{% url 'main:logout' %}">
+        <button>
+            Logout
         </button>
     </a>
 

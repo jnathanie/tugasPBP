@@ -240,3 +240,276 @@ urlpatterns = [
 
 ### JSON by ID
 ![Alt text](image-8.png)
+
+
+</details>
+
+<details>
+<summary>Tugas 4</summary>
+
+# Tugas 4 PBP
+## Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+UserCreationForm adalah salah satu bentuk dari built-in forms dari Django yang dirancang khusus untuk membuat dan mendaftarkan pengguna baru dalam aplikasi web yang dibangun menggunakan Django. Django UserCreationForm menyediakan serangkaian bidang dan validasi bawaan yang memudahkan penggunaan proses pendaftaran pengguna dalam aplikasi yang dibuat sehingga pengguna baru dapat mendaftar dengan mudah di situs web kita tanpa harus menulis kode dari awal.
+* Kelebihan
+  * Mudah dalam Penggunaan
+  UserCreationForm sudah memiliki bidang standar yang umumnya digunakan dalam pendaftaran pengguna seperti username dan password. Hal ini membuatnya mudah digunakan tanpa perlu menulis kode form dari awal.
+  * Validasi Otomatis
+  Form ini memiliki validasi otomatis untuk memastikan data yang dimasukkan oleh pengguna sesuai dengan aturan yang ditentukan, seperti memeriksa apakah username sudah digunakan atau password memiliki tingkat keamanan yang cukup.
+  * Kustomisasi
+  Kita dapat menyesuaikan UserCreationForm sesuai kebutuhan aplikasi dengan menambahkan atau menghapus bidang atau  membuat subclass untuk mengubah perilakunya.
+* Kekurangan
+  * Desain Tampilan Terbatas
+   UserCreationForm tidak memiliki tampilan atau antarmuka pengguna yang sudah dibuat, jadi jika ingin membuat tampilan lebih menarik, kita perlu membuat tampilan pendaftaran pengguna sendiri yang membutuhkan waktu dan usaha tambahan.
+
+
+## Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+Autentikasi adalah proses verifikasi pengguna yang hendak mengakses sebuah sumber daya web (sistem, server, dan lain sebagainya). Autentikasi biasanya melibatkan validasi terhadap kredensial pengguna, seperti nama pengguna dan password. Autentikasi penting untuk melindungi informasi sensitif dan mencegah akses yang tidak sah ke akun pengguna. Sedangkan otorisasi adalah proses identifikasi apakah pengguna memiliki akses terhadap suatu sumber daya atau tidak. Maka dari itu, autentikasi dilakukan sebelum otorisasi. Keduanya penting karena kombinasi autentikasi dan otorisasi memungkinkan pemilik sumber daya untuk mengelola tingkat keamanan dan akses dalam aplikasi kita, mengontrol siapa yang dapat melakukan apa, dan melindungi data dan sumber daya dari akses yang tidak sah.
+
+
+## Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+Cookie adalah sejumlah kecil informasi yang dikirim oleh server web ke browser dan kemudian dikirim kembali oleh browser pada page request selanjutnya. Cookie bersifat sementara. Cookie digunakan dalam konteks aplikasi web untuk menyimpan informasi di sisi klien (pada perangkat pengguna) yang dapat digunakan oleh server web untuk mengenali dan mengidentifikasi pengguna kembali saat mereka berinteraksi dengan situs atau aplikasi yang sama. Cookie dapat digunakan untuk berbagai tujuan, salah satunya adalah mengelola data sesi pengguna. 
+
+Ketika pengguna pertama kali berinteraksi dengan aplikasi web Django, server akan mengirimkan cookie ke browser pengguna melalui header HTTP. Cookie ini berisi informasi yang digunakan oleh server untuk mengenali dan mengelola sesi pengguna. Cookie yang dikirimkan oleh server mengandung informasi seperti ID sesi pengguna. ID ini menghubungkan browser pengguna dengan data sesi yang disimpan di server, yang biasanya disimpan dalam database, cache, atau tempat penyimpanan lainnya. Browser pengguna menyimpan cookie ini, dan setiap kali pengguna membuat permintaan berikutnya ke aplikasi web yang sama, cookie tersebut akan disertakan dalam header permintaan HTTP. Ini memungkinkan server untuk mengidentifikasi pengguna berdasarkan ID sesi yang disimpan dalam cookie. Cookie memiliki beberapa atribut, termasuk nama dan nilai (data yang disimpan), domain website, path pada domain tersebut, tanggal kedaluwarsa, ukuran cookie, dan lainnya.
+
+
+## Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Karena cookies disimpan di sisi klien, keamanan sepenuhnya tergantung pada tindakan pengguna. Cookies dapat dengan mudah dilihat oleh pengguna melalui peramban web mereka, sehingga data sensitif sebaiknya tidak disimpan di dalamnya. Karena sifat terbuka cookies, mereka bisa disalin dan direplikasi dengan mudah, meningkatkan risiko serangan yang dikenal sebagai "cookie stealing" yang dapat digunakan untuk menipu server dengan relatif mudah.
+
+
+## Pengimplementasian checklist di atas secara step-by-step
+### Membuat Halaman Registrasi
+Kita akan membuat template html dengan nama `register.html` dan pada berkas ini kita isi dengan kode untuk tampilan halaman pendaftaran pengguna. Kurang lebih implementasinya adalah sebagai berikut
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Register</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "login">
+    
+    <h1>Register</h1>  
+
+        <form method="POST" >  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_table }}  
+                <tr>  
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Daftar"/></td>  
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+{% endblock content %}
+```
+
+### Membuat Halaman Login
+Pada Django, template login form tidak tersedia sehingga kita perlu mengimplementasikannya sendiri. Berikut adalah contoh isi berkas `login.html` yang saya gunakan:
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+
+    <h1>Login</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Username: </td>
+                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td>Password: </td>
+                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input class="btn login_btn" type="submit" value="Login"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}     
+        
+    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+
+</div>
+
+{% endblock content %}
+```
+Pada `views.py`, kita akan mengimplementasian autentikasi pengguna berdasarkan username dan password yang diterima dari request yang dikirim pengguna saat login. Kita dapat menggunakan interface Django `authenticate` untuk mengimplementasikannya. Berikut adalah fungsi login yang saya gunakan
+```
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('main:show_main')
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    context = {}
+    return render(request, 'login.html', context)
+```
+Setelah itu, kita ingin membatasi agar hanya user yang login yang dapat mengakses halaman utama. Caranya adalah dengan menggunakan decorator `login_required`. Misalnya seperti ini
+```
+@login_required(login_url='/login')
+def main(request: HttpRequest):
+    ...
+```
+
+### Membuat Fungsi Logout
+Membuat fitur logout dengan pertama-tama membuat tombol `Logout` pada berkas `main.html`. Berikut adalah contoh implementasinya
+```
+...
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+...
+```
+Selanjutnya, kita membuat fungsi logout yang akan akhiri sesi pengguna yang saat ini masuk dan menghapus cookie dengan nama `last_login` dari respons yang akan dikirimkan ke browser pengguna dan mengarahkan pengguna ke halaman login setelah berhasil logout. Berikut contoh implementasinya
+```
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+
+### Menghubungkan Models dengan User
+Untuk menghubungkan Models dengan User, kita perlu menggunakan `ForeignKey` agar sebuah produk diasosiasikan hanya dengan seorang user. Implementasinya adalah sebagai berikut
+```
+class Item(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+```
+Selanjutnya, kita perlu mengassign user terkait saat pembuatan object item. Implementasinya pada fungsi `create_item` adalah sebagai berikut
+```
+def create_item(request):
+    form = ItemForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        item = form.save(commit=False)
+        item.user = request.user
+        item.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_item.html", context)
+```
+Dan untuk menampilkan objek item yang terasosiasikan dengan pengguna yang sedang login, kita perlu menyaring seluruh objek dan hanya mengambil `Item` di mana field `user` terisi dengan objek `User` yang sama dengan pengguna yang sedang login. Implementasinya adalah sebagai berikut
+```
+def show_main(request):
+    items = Item.objects.filter(user=request.user)
+    ...
+```
+
+
+### Membuat Cookie Informasi Last Login
+Kita mengambil nilai cookie dengan menambahkan `last_login = request.COOKIES['last_login']` pada `context`. Implementasi cookie informasi last login kurang lebih implementasinya sebagai berikut 
+```
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+            ...
+```
+
+
+### Bonus: button tambah, button kurang, button hapus
+Pertama-tama kita perlu menambahkan button tambah, button kurang, dan button hapus pada berkas `main.html`. Implementasinya adalah sebagai berikut
+```
+<td align="center">
+    <div style="display: inline-block;">
+        <form method="post" action="{% url 'main:add_amount' item.id %}">
+            {% csrf_token %}
+            <button type="submit">Tambah</button>
+        </form>
+    </div>
+    <div style="display: inline-block;">
+        <form method="post" action="{% url 'main:min_amount' item.id %}">
+            {% csrf_token %}
+            <button type="submit">Kurang</button>
+        </form>
+    </div>
+    <div style="display: inline-block;">
+        <form method="post" action="{% url 'main:remove_item' item.id %}">
+            {% csrf_token %}
+            <button type="submit">Hapus</button>
+        </form>
+    </div>
+</td>
+```
+Button tersebut akan mengarah ke fungsi `add_amount`, `min_amount`, dan `remove_item` dengan parameter request dan id. Id adalah id item yang akan diubah. Berikut adalah implementasi fungsi `add_amount`, `min_amount`, dan `remove_item`.
+```
+@login_required(login_url='/login')
+def add_amount(request, id):
+    if request.method == 'POST':
+        item = Item.objects.filter(user=request.user, pk=id).first()
+        if item:
+            item.amount += 1
+            item.save()
+    return redirect('main:show_main')
+
+@login_required(login_url='/login')
+def min_amount(request, id):
+    if request.method == 'POST':
+        item = Item.objects.filter(user=request.user, pk=id).first()
+        if item:
+            if (item.amount == 0):
+                item.amount == 0
+            else:
+                item.amount -= 1
+            item.save()
+    return redirect('main:show_main')
+
+@login_required(login_url='/login')
+def remove_item(request, id):
+    if request.method == 'POST':
+        item = Item.objects.filter(user=request.user, pk=id).first()
+        if item:
+            item.delete()
+    return redirect('main:show_main')
+```
+
+</details>
