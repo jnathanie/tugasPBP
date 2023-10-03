@@ -251,15 +251,11 @@ urlpatterns = [
 ## Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
 UserCreationForm adalah salah satu bentuk dari built-in forms dari Django yang dirancang khusus untuk membuat dan mendaftarkan pengguna baru dalam aplikasi web yang dibangun menggunakan Django. Django UserCreationForm menyediakan serangkaian bidang dan validasi bawaan yang memudahkan penggunaan proses pendaftaran pengguna dalam aplikasi yang dibuat sehingga pengguna baru dapat mendaftar dengan mudah di situs web kita tanpa harus menulis kode dari awal.
 * Kelebihan
-  * Mudah dalam Penggunaan
-  UserCreationForm sudah memiliki bidang standar yang umumnya digunakan dalam pendaftaran pengguna seperti username dan password. Hal ini membuatnya mudah digunakan tanpa perlu menulis kode form dari awal.
-  * Validasi Otomatis
-  Form ini memiliki validasi otomatis untuk memastikan data yang dimasukkan oleh pengguna sesuai dengan aturan yang ditentukan, seperti memeriksa apakah username sudah digunakan atau password memiliki tingkat keamanan yang cukup.
-  * Kustomisasi
-  Kita dapat menyesuaikan UserCreationForm sesuai kebutuhan aplikasi dengan menambahkan atau menghapus bidang atau  membuat subclass untuk mengubah perilakunya.
+  * Mudah dalam Penggunaan: UserCreationForm sudah memiliki bidang standar yang umumnya digunakan dalam pendaftaran pengguna seperti username dan password. Hal ini membuatnya mudah digunakan tanpa perlu menulis kode form dari awal.
+  * Validasi Otomatis: Form ini memiliki validasi otomatis untuk memastikan data yang dimasukkan oleh pengguna sesuai dengan aturan yang ditentukan, seperti memeriksa apakah username sudah digunakan atau password memiliki tingkat keamanan yang cukup.
+  * Kustomisasi: Kita dapat menyesuaikan UserCreationForm sesuai kebutuhan aplikasi dengan menambahkan atau menghapus bidang atau  membuat subclass untuk mengubah perilakunya.
 * Kekurangan
-  * Desain Tampilan Terbatas
-   UserCreationForm tidak memiliki tampilan atau antarmuka pengguna yang sudah dibuat, jadi jika ingin membuat tampilan lebih menarik, kita perlu membuat tampilan pendaftaran pengguna sendiri yang membutuhkan waktu dan usaha tambahan.
+  * Desain Tampilan Terbatas: UserCreationForm tidak memiliki tampilan atau antarmuka pengguna yang sudah dibuat, jadi jika ingin membuat tampilan lebih menarik, kita perlu membuat tampilan pendaftaran pengguna sendiri yang membutuhkan waktu dan usaha tambahan.
 
 
 ## Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
