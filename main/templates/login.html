@@ -1,45 +1,69 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block meta %}
     <title>Login</title>
 {% endblock meta %}
 
 {% block content %}
 
-<div class = "login">
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-    <h1>Login</h1>
+    .login-container {
+        width: 50vw;
+        height: 100vh
+        max-width: 100%; 
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+    .card-header {
+        font-size: 1.5em;
+    }
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+</style>
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+<div class="login-container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">Login</div>
+        <div class="card-body">
 
+            <div class="text-center mb-4">
+                <img src="{% static 'img/logo_login.png' %}" alt="Logo Login" width="100" height="100"/>
+            </div>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" placeholder="Username" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" placeholder="Password" class="form-control" id="password">
+                </div>
+                <div class="form-group text-center" style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+            {% if messages %}
+                <ul class="alert alert-danger">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <p>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></p>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

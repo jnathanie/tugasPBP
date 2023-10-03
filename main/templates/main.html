@@ -1,71 +1,81 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Inventory Page</h1>
 
-    <h5>Name:</h5>
-    <p>{{name}}</p>
+<style>    
+    .header-color {
+        background-color: #007bff;
+        color: white;
+    }
 
-    <h5>Class:</h5>
-    <p>{{class}}</p>
-
-    {% comment %} Mengimplementasikan fitur tambahan {% endcomment %}
-    <p>Kamu menyimpan {{ item_count }} item di sini</p>
-
-    <table>
-        <tr>
-            <th style="width: 15%;" align="center">Name</th>
-            <th style="width: 10%;" align="center">Amount</th>
-            <th style="width: 40%;" align="center">Description</th>
-            <th align="center">Date Added</th>
-        </tr>
-
-        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
-        {% for item in items %}
-            <tr>
-                <td style="width: 15%;" align="center">{{item.name}}</td>
-                <td style="width: 10%;" align="center">{{item.amount}}</td>
-                <td style="width: 40%;" align="center">{{item.description}}</td>
-                <td align="center">{{item.date_added}}</td>
-                <td align="center">
-                    <div style="display: inline-block;">
-                        <form method="post" action="{% url 'main:add_amount' item.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Tambah</button>
-                        </form>
-                    </div>
-                    <div style="display: inline-block;">
-                        <form method="post" action="{% url 'main:min_amount' item.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Kurang</button>
-                        </form>
-                    </div>
-                    <div style="display: inline-block;">
-                        <form method="post" action="{% url 'main:remove_item' item.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Hapus</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    .card-header {
+        font-size: 1.5em;
+    }
     
-    <br />
+    .card {
+        margin-top: 50px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+    
+</style>
 
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">Inventory Page</div>
+                <div class="card-body">
+                    <h5>Name:</h5>
+                    <p>{{name}}</p>
 
-    <a href="{% url 'main:create_item' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
+                    <h5>Class:</h5>
+                    <p>{{class}}</p>
 
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
+                    <p>Kamu menyimpan {{ item_count }} jenis item di sini</p>
 
+                    <table class="table full-width">
+                        <thead class="header-color">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Date Added</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.description}}</td>
+                                    <td>{{item.date_added}}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'main:add_amount' item.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success">Tambah</button>
+                                        </form>
+                                        <form method="post" action="{% url 'main:min_amount' item.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-warning">Kurang</button>
+                                        </form>
+                                        <form method="post" action="{% url 'main:remove_item' item.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+                <a href="{% url 'main:create_item' %}" class="btn btn-success">Add New Item</a>
+                <a href="{% url 'main:logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

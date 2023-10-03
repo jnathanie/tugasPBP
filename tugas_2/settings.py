@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'main'
 ]
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'main/templates',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

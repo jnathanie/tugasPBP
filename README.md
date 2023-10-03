@@ -513,3 +513,137 @@ def remove_item(request, id):
 ```
 
 </details>
+
+
+<details>
+<summary>Tugas 5</summary>
+
+# Tugas 5 PBP
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Untuk mengimplementasikan kustomisasi pada tugas kali ini, saya menggunakan framework Bootstrap.
+## Halaman Login
+![Alt text](image-17.png)
+Pada halaman login, saya menggunakan class `login-container`, `card`, `card-header`, dan lain sebagainya. Untuk mengkustomisasi warna header, letak, padding, border, dan lainnya, saya mendefinisikannya dalam tag `<style>`seperti berikut ini:
+```
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        width: 50vw;
+        height: 100vh
+        max-width: 100%; 
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        font-size: 1.5em;
+    }
+
+</style>
+```
+Lalu, saya juga menambahkan icon login untuk membuatnya lebih menarik dengan sintaks berikut `<img src="{% static 'img/logo_login.png' %}" alt="Logo Login" width="100" height="100"/>`
+
+## Halaman Register
+![Alt text](image-16.png)
+Pada halaman register, secara garis besar, saya mengkustomisasinya dengan mengatur peletakan container dan pewarnaan header. Saya mengkreasikannya dengan mendefinisikannya dalam tag `<style>`seperti berikut ini:
+```
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-header {
+        font-size: 1.5em;
+    }
+</style>
+```
+
+## Halaman Main
+![Alt text](image-15.png)
+Pada halaman daftar inventori, saya membuat beberapa class. Misalnya ada class container, card, header-color, card-header, dan sebagainya. Saya melakukan kustomisasi dengan mendefinisikannya dalam tag `<style>`seperti berikut ini:
+```
+<style>    
+    .header-color {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .card-header {
+        font-size: 1.5em;
+    }
+    
+    .card {
+        margin-top: 50px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+    
+</style>
+```
+Lalu, untuk mengkreasikan button `Tambah`, saya menambahkan sintaks `class="btn btn-success`, untuk button `Kurang` dengan sintaks `class="btn btn-warning"`, dan untuk button `Hapus` dengan sintaks `btn btn-danger`.
+
+## Halaman Tambah Inventori
+![Alt text](image-14.png)
+Pada halaman tambah inventori, saya mengkustomisasinya dengan memberikan warna pada header card, menyesuaikan letaknya, serta mengatur margin. Untuk mengatur tata letak elemen pada halaman, saya menggunakan class `container`, `row`, dan `col-md-6`.
+
+
+## Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya
+1. Element Selector
+Selector elemen digunakan untuk memilih semua elemen yang memiliki tag HTML tertentu, cocok untuk memberikan gaya umum pada elemen tersebut di seluruh halaman web. Contoh:
+```
+p {
+    color: blue;
+}
+```
+2. ID Selector
+ID Selector memungkinkan developer memilih elemen dengan atribut `id` tertentu di dalam HTML sehingga cocok penerapan gaya atau fungsionalitas khusus pada elemen tertentu di halaman web. Contoh:
+```
+#header {
+    font-size: 24px;
+}
+```
+3. Class Selector
+Class Selector memungkinkan developer untuk memilih elemen-elemen yang memiliki atribut `class` tertentu di dalam HTML sehingga ideal untuk memilih elemen tertentu yang memiliki karakteristik atau fungsi yang sama, memungkinkan penerapan gaya yang seragam pada elemen-elemen tersebut. Contoh:
+```
+.button {
+    background-color: green;
+}
+```
+
+
+## Jelaskan HTML5 Tag yang kamu ketahui.
+* `<div>`: Elemen blok umum yang digunakan untuk mengelompokkan elemen-elemen HTML dan menerapkan CSS atau skrip ke kelompok tersebut.
+* `<img>`: Menyisipkan gambar ke dalam halaman web.
+* `<audio>`: Menyisipkan file audio ke dalam halaman web.
+* `<canvas>`: Memungkinkan gambar dan grafik untuk digambar melalui JavaScript.
+* `<video>`: Menyisipkan video ke dalam halaman web.
+
+
+## Jelaskan perbedaan antara margin dan padding.
+Margin adalah area kosong di sisi luar dari elemen HTML. Margin berfungsi untuk mengatur jarak antara suatu elemen dengan elemen lainnya pada HTML. Sedangkan padding merupakan ruang kosong yang berada pada sisi dalam sebuah elemen HTML. Padding berfungsi untuk memberikan jarak antara sebuah elemen dan elemen lainnya yang berada di dalam tag tersebut. Berikut adalah ilustrasi perbedaannya.
+![Alt text](image-12.png)
+
+
+## Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+Perbedaan utama antara framework Tailwind dan Bootstrap terletak pada pendekatan yang digunakan. Tailwind bukanlah kit UI yang sudah jadi dan siap pakai, berbeda dengan Bootstrap yang sudah memiliki template khusus. 
+
+Maka dari itu, Bootstrap adalah pilihan ideal jika website diperlukan dalam waktu cepat dan ingin mengejar efisiensi waktu. Dengan komponen-komponen siap pakai dan desain bawaan yang responsif, Bootstrap memungkinkan pengembangan cepat tanpa kehilangan kualitas sehingga sangat efektif ketika proyek website memiliki batas waktu yang ketat dan memerlukan antarmuka yang terlihat baik dengan waktu implementasi yang singkat.
+
+Sementara itu, Tailwind menawarkan fleksibilitas yang tinggi, akan tetapi membutuhkan waktu lebih lama untuk menggunakannya dengan maksimal. Hal ini karena pengembang perlu membangun antarmuka dari nol dengan menggabungkan kelas-kelas utilitas yang mungkin memerlukan lebih banyak waktu daripada menggunakan Bootstrap. Namun, dalam jangka panjang, Tailwind memungkinkan pengembang membuat desain yang lebih kreatif dan unik sesuai kebutuhan proyek.
+
+
+</details> 
