@@ -18,6 +18,9 @@
     .card-header {
         font-size: 1.5em;
     }
+    .alert-success {
+        color: green;
+    }
 </style>
 
 <div class="container">
@@ -32,11 +35,17 @@
                         <button type="submit" class="btn btn-primary">Register</button>
                     </form>
                     {% if messages %}
-                        <ul class="alert alert-danger">
-                            {% for message in messages %}
-                                <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
+                        {% for message in messages %}
+                            {% if message.tags == 'success' %}
+                                <div class="alert alert-success">
+                                    {{ message }}
+                                </div>
+                            {% else %}
+                                <ul class="alert alert-danger">
+                                    <li>{{ message }}</li>
+                                </ul>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>

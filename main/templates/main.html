@@ -2,25 +2,8 @@
 
 {% block content %}
 
-<style>    
-    .header-color {
-        background-color: #007bff;
-        color: white;
-    }
 
-    .card-header {
-        font-size: 1.5em;
-    }
-    
-    .card {
-        margin-top: 50px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-    }
-    
-</style>
-
-<div class="container">
+<div class="container" style="min-height: 100vh; min-width: 100vw; padding: 70px;">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -28,54 +11,116 @@
                 <div class="card-body">
                     <h5>Name:</h5>
                     <p>{{name}}</p>
-
                     <h5>Class:</h5>
                     <p>{{class}}</p>
 
-                    <p>Kamu menyimpan {{ item_count }} jenis item di sini</p>
+                    <div id="item_card" class="row"></div>
 
-                    <table class="table full-width">
-                        <thead class="header-color">
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Date Added</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in items %}
-                                <tr>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.amount}}</td>
-                                    <td>{{item.description}}</td>
-                                    <td>{{item.date_added}}</td>
-                                    <td>
-                                        <form method="post" action="{% url 'main:add_amount' item.id %}" style="display: inline;">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-success">Tambah</button>
-                                        </form>
-                                        <form method="post" action="{% url 'main:min_amount' item.id %}" style="display: inline;">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-warning">Kurang</button>
-                                        </form>
-                                        <form method="post" action="{% url 'main:remove_item' item.id %}" style="display: inline;">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-danger">Hapus</button>
-                                        </form>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                
-                <h5>Sesi terakhir login: {{ last_login }}</h5>
-
-                <a href="{% url 'main:create_item' %}" class="btn btn-success">Add New Item</a>
-                <a href="{% url 'main:logout' %}" class="btn btn-danger">Logout</a>
+                    <h5>Sesi terakhir login: {{ last_login }}</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
+                    <a href="{% url 'main:logout' %}" class="btn btn-danger">Logout</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json());
+    }
+
+    async function refreshItems() {
+        const items = await getItems();
+        const itemCard = document.getElementById("item_card");
+        itemCard.innerHTML = ""; // Kosongkan elemen sebelum menambahkan kartu
+
+        items.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "col-md-4 mb-3";
+
+            card.innerHTML = `
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name}</h5>
+                        <p class="card-text">Amount: ${item.fields.amount}</p>
+                        <p class="card-text">Description: ${item.fields.description}</p>
+                        <p class="card-text">Date Added: ${item.fields.date_added}</p>
+                        <button data-id="${item.pk}" class="btn btn-danger btn-sm" onclick="deleteItem(this.getAttribute('data-id'))">Delete</button>
+                    </div>
+                </div>
+            `;
+
+            itemCard.appendChild(card);
+        });
+    }
+
+    async function deleteItem(itemId) {
+        const deleteUrl = `{% url 'main:delete_item_ajax' item_id=999 %}`.replace('999', itemId);
+        console.log(itemId);
+        try {
+            const response = await fetch(deleteUrl, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }).then(refreshItems)
+            
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function addItem() {
+        fetch("{% url 'main:add_item_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems);
+
+        document.getElementById("form").reset();
+        return false;
+    }
+
+    document.getElementById("button_add").onclick = addItem;
+
+    // Panggil refreshItems() saat halaman pertama kali dimuat
+    refreshItems();
+    
+    
+</script>
+
+
+
 {% endblock content %}
