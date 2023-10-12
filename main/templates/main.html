@@ -78,7 +78,11 @@
                         <p class="card-text">Amount: ${item.fields.amount}</p>
                         <p class="card-text">Description: ${item.fields.description}</p>
                         <p class="card-text">Date Added: ${item.fields.date_added}</p>
-                        <button data-id="${item.pk}" class="btn btn-danger btn-sm" onclick="deleteItem(this.getAttribute('data-id'))">Delete</button>
+                        <div class="card-footer">
+                            <a href="add_amount/${item.pk}" class="btn btn-success btn-sm">Tambah</a>
+                            <a href="min_amount/${item.pk}" class="btn btn-warning btn-sm">Kurang</a>
+                            <button data-id="${item.pk}" class="btn btn-danger btn-sm" onclick="deleteItem(this.getAttribute('data-id'))">Delete</button>
+                        </div>
                     </div>
                 </div>
             `;

@@ -107,24 +107,20 @@ def logout_user(request):
 
 @login_required(login_url='/login')
 def add_amount(request, id):
-    if request.method == 'POST':
-        item = Item.objects.filter(user=request.user, pk=id).first()
-        if item:
-            item.amount += 1
-            item.save()
-    return redirect('main:show_main')
+    item = Item.objects.get(pk = id)
+    item.amount += 1
+    item.save()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 @login_required(login_url='/login')
 def min_amount(request, id):
-    if request.method == 'POST':
-        item = Item.objects.filter(user=request.user, pk=id).first()
-        if item:
-            if (item.amount == 0):
-                item.amount == 0
-            else:
-                item.amount -= 1
-            item.save()
-    return redirect('main:show_main')
+    item = Item.objects.get(pk = id)
+    if item.amount > 0:
+        item.amount -= 1
+        item.save()
+    if item.amount == 0:
+        item.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 @login_required(login_url='/login')
 def remove_item(request, id):
