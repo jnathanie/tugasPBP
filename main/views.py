@@ -166,7 +166,8 @@ def delete_item_ajax(request, item_id):
         item = Item.objects.get(id=item_id)
         item.delete()
         return HttpResponse({'status': 'DELETED'}, status=200)
-    
+  
+@csrf_exempt
 def create_item_flutter(request):
     if request.method == 'POST':
         
@@ -175,7 +176,7 @@ def create_item_flutter(request):
         new_product = Item.objects.create(
             user = request.user,
             name = data["name"],
-            price = int(data["price"]),
+            amount = int(data["amount"]),
             description = data["description"]
         )
 
